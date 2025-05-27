@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<main>
+    <h1 align="center" style="color: sienna">
+        Салон красоты<br>"SAVY"
+    </h1>
+    <section class="section-about"></section>
+
+    <section class="section-h">
+
+        <h1>Здесь работают только <span>профессионалы!</span></h1>
+        <img align="middle" src="{% static 'img/file32.jpg' %}" width="250" height="300"/>
+        <img align="middle" src="{% static 'img/file33.jpg' %}" width="250" height="300"/>
+        <img align="middle" src="{% static 'img/file34.jpg' %}" width="250" height="300"/>
+
+        <h2>Мы отвечаем за качество процедур</h2>
+        <h3>Записывайтесь!</h3>
+        <h4>Не сомневайтесь!</h4>
+        <h5>Индивидуальный подход к каждому клиенту </h5>
+
+    </section>
+
+
+    <section>
+        <h1 style="color: brown"><em>Успей записаться на этот месяц!</em></h1>
+
+        <h1 style="color: brown"><em>Количество мест ограничено!!!</em></h1>
+    </section>
+</main>
+{% endblock %}
+

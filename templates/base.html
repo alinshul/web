@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Салон SAVY</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+
+</head>
+
+
+<body>
+{% include 'header.html' %}
+{% block content %}{%endblock%}
+
+<footer>
+    <p>Подвал сайта</p>
+</footer>
+
+
+</body>
+
+</html>
