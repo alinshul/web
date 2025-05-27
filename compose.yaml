@@ -1,0 +1,61 @@
+services:
+  web:
+    build: .
+    container_name: django-app
+    restart: unless-stopped
+    ports:
+      - "8001:8000"
+    depends_on:
+      redis:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    networks:
+      - backend
+    environment:
+      - SECRET_KEY=django-insecure-k75y55szd#a58#!9ec0$$fio$!i-4rysevfqz@ab=taln362j&g
+      - DATABASE_URL=postgres://postgres:admin@db:5432/postgres
+      - REDIS_URL=redis://redis:6379/0
+      - DJANGO_DEBUG=1
+      - DJANGO_ALLOWED_HOSTS=*
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7
+    container_name: redis
+    restart: unless-stopped
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres-data:
+
+networks:
+  backend:
+    driver: bridge
